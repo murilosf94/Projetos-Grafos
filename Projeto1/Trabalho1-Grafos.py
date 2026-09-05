@@ -1,17 +1,20 @@
 import networkx as nx
 import matplotlib.pyplot as plt
 import random
+import pickle
 
 num_linhas = 6
 num_colunas = 6
 
 #matriz aleatória de 6x6 com 1, 2 e 3 / 1 = circulo, 2 = quadrado, 3 = triângulo
-MATRIZ = [[random.choice([1, 2, 3]) for _ in range(num_colunas)] for _ in range(num_linhas)]
+# MATRIZ = [[random.choice([1, 2, 3]) for _ in range(num_colunas)] for _ in range(num_linhas)]
+
+
 
 #preview da matriz da rodada
-print("Tabuleiro gerado nesta rodada:")
-for linha in MATRIZ:
-    print(linha)
+# print("Tabuleiro gerado nesta rodada:")
+# for linha in MATRIZ:
+#     print(linha)
 
 # #1 = circulo, 2 = quadrado, 3 = triângulo
 # MATRIZ = [
@@ -22,6 +25,10 @@ for linha in MATRIZ:
 #     [1, 2, 3, 2, 3, 1],
 #     [2, 3, 1, 1, 2, 3]
 # ]
+
+with open("2026\\8SEMESTRE\\GRAFOS\\Projetos-Grafos\\Projeto1\\MATRIZ_C.pickle", "rb") as f:
+    MATRIZ=pickle.load(f)
+
 
 #distância máxima entre as coordenadas, ou seja, o número mínimo de movimentos em qualquer direção para ir de um ponto a outro
 def passos(linha1, coluna1, linha2, coluna2):
@@ -75,7 +82,7 @@ def gerar_grafo(matriz):
         triangulos = [(linha_alvo, coluna_alvo) 
                         for linha_alvo in range(linhas) 
                             for coluna_alvo in range(colunas)
-                               if matriz[linha_alvo][coluna_alvo] == 3 and eh_8_direcoes(linha, coluna, linha_alvo, coluna_alvo) and (coluna_alvo > coluna or linha_alvo > linha)]
+                               if matriz[linha_alvo][coluna_alvo] == 3 and eh_8_direcoes(linha, coluna, linha_alvo, coluna_alvo) and (coluna_alvo > coluna or linha_alvo > linha) and not abs(linha_alvo - linha) == abs(coluna_alvo - coluna)]
 
         if triangulos:
             dist_min = min(passos(linha, coluna, linha_alvo, coluna_alvo) for linha_alvo, coluna_alvo in triangulos)
