@@ -1,6 +1,7 @@
 #include <iostream>
 #include <bits/stdc++.h>
 #include <iomanip>
+#include <fstream>
 
 using namespace std;
 #define fastio ios::sync_with_stdio(false); cin.tie(nullptr);
@@ -46,7 +47,10 @@ void DFS(int pivot, int u, int minV) {
     dfs_num[u] = VISITED;
     ans[pivot][u] = minV;
     ans[u][pivot] = minV;
-    for (auto [v, w] : AL[u]) {
+    
+    for (auto edge : AL[u]) {
+        int v = edge.first;
+        int w = edge.second;
         if (dfs_num[v] == VISITED) continue;
         DFS(pivot, v, min(minV, w));
     }
@@ -70,7 +74,12 @@ int main() {
     sort (EL.begin(), EL.end(), comp);
     UnionFind UF(N);
     int num_taken = 0;
-    for (auto &[w,u,v] : EL) {
+    
+    for (auto &edge : EL) {
+        int w = get<0>(edge);
+        int u = get<1>(edge);
+        int v = get<2>(edge);
+        
         if (UF.isSameSet(u, v)) continue;
         AL[u].emplace_back(v, w);
         AL[v].emplace_back(u, w);
@@ -91,7 +100,6 @@ int main() {
         cout << ans[a][b] << '\n';
     }
 
-    // --- INÍCIO DA GERAÇÃO DA INTERFACE VISUAL ---
     ofstream html("projeto_caminhao.html");
     html << "<!DOCTYPE html>\n<html>\n<head>\n"
          << "  <script type=\"text/javascript\" src=\"https://unpkg.com/vis-network/standalone/umd/vis-network.min.js\"></script>\n"
@@ -112,13 +120,19 @@ int main() {
     // Identifica quais arestas foram escolhidas para a árvore (AL)
     set<pair<int, int>> mst_edges;
     for (int u = 0; u < N; ++u) {
-        for (auto [v, w] : AL[u]) {
+        // Substituição do binding
+        for (auto edge : AL[u]) {
+            int v = edge.first;
             mst_edges.insert({min(u, v), max(u, v)});
         }
     }
 
     // Desenha todas as arestas lidas
-    for (auto [w, u, v] : EL) {
+    for (auto edge : EL) {
+        int w = get<0>(edge);
+        int u = get<1>(edge);
+        int v = get<2>(edge);
+        
         bool is_mst = mst_edges.count({min(u, v), max(u, v)});
         string color = is_mst ? "blue" : "red";
         int width = is_mst ? 3 : 1;
@@ -136,7 +150,6 @@ int main() {
          << "    var network = new vis.Network(container, data, options);\n"
          << "  </script>\n</body>\n</html>\n";
     html.close();
-    // --- FIM DA GERAÇÃO DA INTERFACE VISUAL ---
 
     return 0;
 }

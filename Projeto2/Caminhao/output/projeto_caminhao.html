@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script type="text/javascript" src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"></script>
+  <style type="text/css"> #mynetwork { width: 800px; height: 600px; border: 1px solid lightgray; background-color: #f9f9f9; } </style>
+</head>
+<body>
+  <h2>Projeto Grafos - Caminhao</h2>
+  <div id="mynetwork"></div>
+  <script type="text/javascript">
+    var nodes = new vis.DataSet([
+      {id: 0, label: '1'},
+      {id: 1, label: '2'},
+      {id: 2, label: '3'},
+      {id: 3, label: '4'},
+      {id: 4, label: '5'},
+    ]);
+    var edges = new vis.DataSet([
+      {from: 0, to: 1, label: '9', color: {color: 'blue', highlight: 'blue'}, width: 3},
+      {from: 1, to: 2, label: '8', color: {color: 'blue', highlight: 'blue'}, width: 3},
+      {from: 1, to: 3, label: '7', color: {color: 'blue', highlight: 'blue'}, width: 3},
+      {from: 4, to: 1, label: '4', color: {color: 'blue', highlight: 'blue'}, width: 3},
+      {from: 2, to: 3, label: '4', color: {color: 'red', highlight: 'red'}, width: 1},
+      {from: 2, to: 4, label: '1', color: {color: 'red', highlight: 'red'}, width: 1},
+      {from: 0, to: 2, label: '0', color: {color: 'red', highlight: 'red'}, width: 1},
+    ]);
+    var container = document.getElementById('mynetwork');
+    var data = { nodes: nodes, edges: edges };
+    var options = { physics: { stabilization: false }, edges: { font: { align: 'top' } } };
+    var network = new vis.Network(container, data, options);
+  </script>
+</body>
+</html>

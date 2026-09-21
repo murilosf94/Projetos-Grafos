@@ -1,0 +1,3 @@
+C:/Users/muril/Desktop/FACULDADE/2026/8SEMESTRE/GRAFOS/Projetos-Grafos/Projeto2/Caminhao/build/CMakeFiles/Caminhao.dir
+C:/Users/muril/Desktop/FACULDADE/2026/8SEMESTRE/GRAFOS/Projetos-Grafos/Projeto2/Caminhao/build/CMakeFiles/edit_cache.dir
+C:/Users/muril/Desktop/FACULDADE/2026/8SEMESTRE/GRAFOS/Projetos-Grafos/Projeto2/Caminhao/build/CMakeFiles/rebuild_cache.dir
