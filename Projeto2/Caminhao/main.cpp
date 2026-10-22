@@ -57,6 +57,7 @@ void DFS(int pivot, int u, int minV) {
 }
 
 int main() {
+    freopen("../10k.txt", "r", stdin);
     fastio;
     int N, M, Q;
     cin >> N >> M >> Q;
